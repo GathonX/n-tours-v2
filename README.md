@@ -72,4 +72,4 @@ public/
 └── vite.svg               ← Existe déjà
 
 Reste à faire 
-reste à faire liaison de page , formulaire de contact , langue multiple , ajout photo
+reste à faire liaison de page, langue multiple , ajout photo

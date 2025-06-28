@@ -1,6 +1,5 @@
-// Location: Replace the existing content in src/components/ContactForm.tsx
-import React, { useState, useEffect } from 'react';
-import emailjs from 'emailjs-com';
+// Location: src/components/ContactForm.tsx
+import React, { useState } from 'react';
 
 interface FormData {
   name: string;
@@ -8,6 +7,7 @@ interface FormData {
   phone: string;
   subject: string;
   message: string;
+  destination: string;
 }
 
 interface Status {
@@ -22,26 +22,13 @@ export default function ContactForm() {
     phone: '',
     subject: '',
     message: '',
+    destination: '',
   });
 
   const [status, setStatus] = useState<Status>({
     type: '',
     message: '',
   });
-
-  // Initialisation d'EmailJS dans un useEffect avec vérification
-  useEffect(() => {
-    const publicKey = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
-    if (!publicKey) {
-      console.error('EmailJS Public Key is missing. Check your .env file and restart the server.');
-      setStatus({
-        type: 'error',
-        message: 'Configuration manquante. Veuillez contacter le support ou redémarrer le serveur.',
-      });
-      return;
-    }
-    emailjs.init(publicKey);
-  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -55,47 +42,39 @@ export default function ContactForm() {
     e.preventDefault();
     setStatus({ type: 'loading', message: 'Envoi en cours...' });
 
-    const serviceId = process.env.REACT_APP_EMAILJS_SERVICE_ID;
-    const templateId = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
-    const publicKey = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
-
-    if (!serviceId || !templateId || !publicKey) {
-      setStatus({
-        type: 'error',
-        message: 'Configuration manquante. Veuillez contacter le support.',
-      });
-      return;
-    }
-
     try {
-      const templateParams = {
-        to_email: 'mandimbizarajuno@gmail.com',
-        from_name: formData.name,
-        from_email: formData.email,
-        phone: formData.phone,
-        subject: formData.subject,
-        message: formData.message,
-      };
-
-      await emailjs.send(serviceId, templateId, templateParams);
-
-      setStatus({
-        type: 'success',
-        message: 'Votre message a été envoyé avec succès ! Nous vous répondrons dans les plus brefs délais.',
+      const response = await fetch('http://localhost:5000/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: '',
-      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setStatus({
+          type: 'success',
+          message: 'Votre message a été envoyé avec succès ! Nous vous répondrons dans les plus brefs délais.',
+        });
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          subject: '',
+          message: '',
+          destination: '',
+        });
+      } else {
+        throw new Error(data.message || 'Erreur lors de l\'envoi');
+      }
     } catch (error) {
       setStatus({
         type: 'error',
         message: 'Une erreur est survenue. Veuillez réessayer ou nous contacter directement.',
       });
-      console.error('EmailJS Error:', error);
+      console.error('Erreur:', error);
     }
   };
 
@@ -145,12 +124,27 @@ export default function ContactForm() {
           </div>
         </div>
 
+        <div>
+          <label htmlFor="phone" className="block text-sm font-medium text-text-primary mb-2">
+            Téléphone
+          </label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+            placeholder="+261 32 12 34 567"
+          />
+        </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div>
             <label className="block text-sm font-medium text-text-primary mb-2 font-sans">Destination souhaitée</label>
             <select 
               name="destination"
-              value=""
+              value={formData.destination}
               onChange={handleChange}
               className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-primary font-sans"
             >
