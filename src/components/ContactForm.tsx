@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+// Location: Replace the existing content in src/components/ContactForm.tsx
+import React, { useState, useEffect } from 'react';
+import emailjs from 'emailjs-com';
 
 interface FormData {
   name: string;
@@ -27,6 +29,20 @@ export default function ContactForm() {
     message: '',
   });
 
+  // Initialisation d'EmailJS dans un useEffect avec vérification
+  useEffect(() => {
+    const publicKey = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
+    if (!publicKey) {
+      console.error('EmailJS Public Key is missing. Check your .env file and restart the server.');
+      setStatus({
+        type: 'error',
+        message: 'Configuration manquante. Veuillez contacter le support ou redémarrer le serveur.',
+      });
+      return;
+    }
+    emailjs.init(publicKey);
+  }, []);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -39,11 +55,30 @@ export default function ContactForm() {
     e.preventDefault();
     setStatus({ type: 'loading', message: 'Envoi en cours...' });
 
+    const serviceId = process.env.REACT_APP_EMAILJS_SERVICE_ID;
+    const templateId = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
+    const publicKey = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
+
+    if (!serviceId || !templateId || !publicKey) {
+      setStatus({
+        type: 'error',
+        message: 'Configuration manquante. Veuillez contacter le support.',
+      });
+      return;
+    }
+
     try {
-      // Simulation d'appel API (remplacer par votre endpoint réel)
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // Simulation de succès
+      const templateParams = {
+        to_email: 'mandimbizarajuno@gmail.com',
+        from_name: formData.name,
+        from_email: formData.email,
+        phone: formData.phone,
+        subject: formData.subject,
+        message: formData.message,
+      };
+
+      await emailjs.send(serviceId, templateId, templateParams);
+
       setStatus({
         type: 'success',
         message: 'Votre message a été envoyé avec succès ! Nous vous répondrons dans les plus brefs délais.',
@@ -55,11 +90,12 @@ export default function ContactForm() {
         subject: '',
         message: '',
       });
-    } catch {
+    } catch (error) {
       setStatus({
         type: 'error',
         message: 'Une erreur est survenue. Veuillez réessayer ou nous contacter directement.',
       });
+      console.error('EmailJS Error:', error);
     }
   };
 
@@ -110,41 +146,41 @@ export default function ContactForm() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-text-primary mb-2 font-sans">Destination souhaitée</label>
-                  <select 
-                    name="destination"
-                    value=""
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-primary font-sans"
-                  >
-                    <option value="">Choisir une destination</option>
-                    <option value="Nosy Iranja">Nosy Iranja - 80€</option>
-                    <option value="Réserve de Lokobe">Réserve de Lokobe - 80€</option>
-                    <option value="Tour de Nosy-Be">Tour de Nosy-Be - 80€</option>
-                    <option value="Nosy Komba & Tanikely">Nosy Komba & Tanikely - 80€</option>
-                    <option value="Tours Ambajaha">Tours Ambajaha - 150€</option>
-                    <option value="Nosy Sakatia">Nosy Sakatia - 60€</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-text-primary mb-2 font-sans">Type de demande *</label>
-                  <select 
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-primary font-sans"
-                  >
-                    <option value="">Sélectionnez un sujet</option>
-                    <option value="reservation">Réservation d'excursion</option>
-                    <option value="information">Demande d'information</option>
-                    <option value="devis">Demande de devis personnalisé</option>
-                    <option value="groupe">Voyage de groupe</option>
-                    <option value="autre">Autre demande</option>
-                  </select>
-                </div>
-              </div>
+          <div>
+            <label className="block text-sm font-medium text-text-primary mb-2 font-sans">Destination souhaitée</label>
+            <select 
+              name="destination"
+              value=""
+              onChange={handleChange}
+              className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-primary font-sans"
+            >
+              <option value="">Choisir une destination</option>
+              <option value="Nosy Iranja">Nosy Iranja - 80€</option>
+              <option value="Réserve de Lokobe">Réserve de Lokobe - 80€</option>
+              <option value="Tour de Nosy-Be">Tour de Nosy-Be - 80€</option>
+              <option value="Nosy Komba & Tanikely">Nosy Komba & Tanikely - 80€</option>
+              <option value="Tours Ambajaha">Tours Ambajaha - 150€</option>
+              <option value="Nosy Sakatia">Nosy Sakatia - 60€</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-text-primary mb-2 font-sans">Type de demande *</label>
+            <select 
+              name="subject"
+              value={formData.subject}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-primary font-sans"
+            >
+              <option value="">Sélectionnez un sujet</option>
+              <option value="reservation">Réservation d'excursion</option>
+              <option value="information">Demande d'information</option>
+              <option value="devis">Demande de devis personnalisé</option>
+              <option value="groupe">Voyage de groupe</option>
+              <option value="autre">Autre demande</option>
+            </select>
+          </div>
+        </div>
 
         <div>
           <label htmlFor="message" className="block text-sm font-medium text-text-primary mb-2">

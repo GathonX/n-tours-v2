@@ -1,3 +1,4 @@
+// Location: Replace the existing content in src/components/PopularDestinations.tsx
 import React from 'react';
 import { useRouter } from '../utils/router';
 import type { Destination } from '../types';
@@ -83,11 +84,10 @@ export default function PopularDestinations() {
   const { navigate } = useRouter();
 
   const handleDestinationClick = (link: string) => {
-    console.log('Navigating to:', link); // Log pour débogage
     if (navigate) {
-      navigate(link);
+      navigate(link); // Utilise la fonction de navigation fournie par useRouter
     } else {
-      console.error('navigate function is not available');
+      console.error('Navigation failed: navigate is not defined');
     }
   };
 

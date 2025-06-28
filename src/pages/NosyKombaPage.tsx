@@ -1,5 +1,6 @@
 import React from 'react';
 import  Layout  from '../components/Layout';
+import ContactSection from '../components/ContactSection';
 
 const NosyKombaPage = () => {
   return (
@@ -71,6 +72,11 @@ const NosyKombaPage = () => {
             </p>
           </div>
         </div>
+
+
+
+<ContactSection />
+
       </section>
     </Layout>
   );

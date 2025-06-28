@@ -1,6 +1,6 @@
+// Location: Replace the existing content in src/utils/router.ts
 import React from 'react';
 import type { RouteConfig, RouterHook } from '../types';
-
 
 // Configuration des routes
 export const routes: RouteConfig[] = [
@@ -40,10 +40,15 @@ export const routes: RouteConfig[] = [
     title: 'Nosy Sakatia & Fanihy - Îles aux Orchidées | NORTINE TOURS'
   }, 
   {
-  path: '/about',
-  component: React.lazy(() => import('../pages/AboutPage')),
-  title: 'À Propos | NORTINE TOURS'
-},
+    path: '/about',
+    component: React.lazy(() => import('../pages/AboutPage')),
+    title: 'À Propos | NORTINE TOURS'
+  },
+  {
+    path: '/contact',
+    component: React.lazy(() => import('../pages/ContactPage')),
+    title: 'Contactez | NORTINE TOURS'
+  },
 ];
 
 // Hook pour la navigation
@@ -58,6 +63,7 @@ export const useRouter = (): RouterHook => {
     if (route) {
       document.title = route.title;
     }
+    window.dispatchEvent(new Event('popstate')); // Force la mise à jour de l'UI
   };
 
   React.useEffect(() => {

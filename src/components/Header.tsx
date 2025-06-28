@@ -1,4 +1,7 @@
+// Location: Replace the existing content in src/components/Header.tsx
 import React, { useState } from 'react';
+import { FaEnvelope, FaPhoneAlt, FaFacebookF, FaWhatsapp } from 'react-icons/fa'; // Icônes réelles
+import { BsGlobe } from 'react-icons/bs'; // Icône pour les langues
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -6,46 +9,48 @@ export default function Header() {
   const navLinks = [
     { label: 'Accueil', href: '/' },
     { label: 'À propos', href: '/about' },
-    { label: 'Destinations', href: '/destinations' },
-    { label: 'Tours', href: '/tours' },
   ];
 
   const socialLinks = [
     {
-      icon: '📧',
+      icon: FaEnvelope,
       href: 'mailto:contact@nortine-tours.mg',
       label: 'Email',
+      color: '#007BFF', // Bleu sophistiqué
     },
     {
-      icon: '📞',
+      icon: FaPhoneAlt,
       href: 'tel:+261326687543',
       label: 'Téléphone',
+      color: '#28A745', // Vert élégant
     },
     {
-      icon: '📘',
+      icon: FaFacebookF,
       href: 'https://www.facebook.com/NortineTours',
       label: 'Facebook',
+      color: '#3B5998', // Bleu Facebook
     },
     {
-      icon: '💬',
+      icon: FaWhatsapp,
       href: 'https://wa.me/261326687543',
       label: 'WhatsApp',
+      color: '#25D366', // Vert WhatsApp
     },
   ];
 
   const languageLinks = [
-    { code: 'fr', name: 'Français', flag: '🇫🇷' },
-    { code: 'en', name: 'English', flag: '🇬🇧' },
-    { code: 'it', name: 'Italiano', flag: '🇮🇹' },
+    { code: 'fr', name: 'Français', flagColor: '#002395', icon: BsGlobe },
+    { code: 'en', name: 'English', flagColor: '#CF142B', icon: BsGlobe },
+    { code: 'it', name: 'Italiano', flagColor: '#009246', icon: BsGlobe },
   ];
 
   return (
-    <header className="fixed top-0 w-full bg-white backdrop-blur-lg shadow-lg z-50">
+    <header className="fixed top-0 w-full bg-white backdrop-blur-lg shadow-md z-50 border-b border-gray-100">
       {/* Sub-Header */}
-      <div className="bg-background-alt">
-        <div className="container mx-auto px-6 lg:px-8 flex flex-wrap justify-between items-center gap-4 py-2 text-sm text-text-secondary">
+      <div className="bg-gray-50">
+        <div className="container mx-auto px-6 lg:px-8 flex flex-wrap justify-between items-center gap-4 py-2 text-sm text-gray-600">
           <div className="flex flex-wrap gap-4">
-            {socialLinks.map(({ icon, href, label }) => (
+            {socialLinks.map(({ icon: Icon, href, label, color }) => (
               <a
                 key={label}
                 href={href}
@@ -53,7 +58,7 @@ export default function Header() {
                 rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
                 className="flex items-center space-x-1 hover:opacity-80 transition-opacity"
               >
-                <span>{icon}</span>
+                <Icon size={14} style={{ color }} />
                 <span className="hidden md:inline">{label}</span>
               </a>
             ))}
@@ -64,7 +69,7 @@ export default function Header() {
                 key={lang.code}
                 className="flex items-center space-x-1 hover:opacity-80 transition-opacity"
               >
-                <span className="text-lg">{lang.flag}</span>
+                <lang.icon size={14} style={{ color: lang.flagColor }} />
                 <span className="hidden md:inline">{lang.name}</span>
               </button>
             ))}
@@ -77,8 +82,9 @@ export default function Header() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex items-center">
-            <a href="/" className="text-3xl font-extrabold text-primary hover:text-primary-dark transition-colors">
-              NORTINE TOURS
+            <a href="/" className="text-3xl font-extrabold text-blue-900 hover:text-primary transition-colors">
+           
+              NORTINE <span className=' text-primary hover:text-gray-900 transition-colors'> TOURS</span>
             </a>
           </div>
 
@@ -88,7 +94,7 @@ export default function Header() {
               <div key={link.label} className="relative group">
                 <a
                   href={link.href}
-                  className="px-1 font-medium text-text-primary hover:text-secondary transition-colors"
+                  className="px-1 font-medium text-gray-700 hover:text-primary transition-colors"
                 >
                   {link.label}
                 </a>
@@ -101,7 +107,7 @@ export default function Header() {
           <div className="hidden md:block">
             <a
               href="/contact"
-              className="bg-primary text-white px-6 py-2 rounded-full shadow-lg hover:shadow-xl hover:bg-primary-dark transition-all transform hover:scale-105"
+              className="bg-primary text-white px-6 py-2 rounded-full shadow-lg hover:bg-primary-dark transition-all transform hover:scale-105"
             >
               Contact
             </a>
@@ -109,7 +115,7 @@ export default function Header() {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 rounded hover:bg-gray-100 transition-colors"
+            className="md:hidden p-2 rounded hover:bg-gray-100 transition-colors text-gray-700"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >
@@ -121,14 +127,14 @@ export default function Header() {
       {/* Mobile Menu */}
       {mobileOpen && (
         <div className="md:hidden fixed inset-0 bg-white backdrop-blur-lg z-40">
-          <div className="flex items-center justify-between p-6 border-b border-border">
-            <a href="/" className="text-2xl font-extrabold text-primary">
+          <div className="flex items-center justify-between p-6 border-b border-gray-200">
+            <a href="/" className="text-2xl font-extrabold text-gray-900">
               NORTINE TOURS
             </a>
             <button 
               onClick={() => setMobileOpen(false)} 
               aria-label="Close menu"
-              className="p-2 hover:bg-gray-100 rounded transition-colors text-2xl"
+              className="p-2 hover:bg-gray-100 rounded transition-colors text-2xl text-gray-700"
             >
               ✕
             </button>
@@ -139,7 +145,7 @@ export default function Header() {
               <div key={link.label}>
                 <a
                   href={link.href}
-                  className="block text-lg font-medium text-text-primary hover:text-secondary transition-colors"
+                  className="block text-lg font-medium text-gray-700 hover:text-primary transition-colors"
                   onClick={() => setMobileOpen(false)}
                 >
                   {link.label}
@@ -149,7 +155,7 @@ export default function Header() {
             <div className="pt-4">
               <a
                 href="/contact"
-                className="inline-block mt-4 bg-primary text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl hover:bg-primary-dark transition-all"
+                className="inline-block mt-4 bg-primary text-white px-8 py-3 rounded-full shadow-lg hover:bg-primary-dark transition-all"
                 onClick={() => setMobileOpen(false)}
               >
                 Contact

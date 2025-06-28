@@ -1,9 +1,12 @@
+// Location: Replace the existing content in src/components/ContactSection.tsx
 import React from 'react';
 import ContactForm from './ContactForm';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMapMarkerAlt, faEnvelope, faPhone, faComments, faClock } from '@fortawesome/free-solid-svg-icons';
 
 export default function ContactSection() {
   return (
-    <section className="py-20 bg-background-alt">
+    <section className="py-20 bg-background-alt" id="contact">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-text-primary mb-4">
@@ -29,8 +32,8 @@ export default function ContactSection() {
               
               <div className="space-y-6">
                 <div className="flex items-start space-x-4">
-                  <div className="bg-primary/10 p-3 rounded-lg">
-                    <span className="text-2xl">📍</span>
+                  <div className="bg-primary/10 p-3 rounded-lg text-primary">
+                    <FontAwesomeIcon icon={faMapMarkerAlt} size="lg" />
                   </div>
                   <div>
                     <h4 className="font-semibold text-text-primary mb-1">Adresse</h4>
@@ -42,8 +45,8 @@ export default function ContactSection() {
                 </div>
 
                 <div className="flex items-start space-x-4">
-                  <div className="bg-secondary/10 p-3 rounded-lg">
-                    <span className="text-2xl">📧</span>
+                  <div className="bg-secondary/10 p-3 rounded-lg text-secondary">
+                    <FontAwesomeIcon icon={faEnvelope} size="lg" />
                   </div>
                   <div>
                     <h4 className="font-semibold text-text-primary mb-1">Email</h4>
@@ -57,8 +60,8 @@ export default function ContactSection() {
                 </div>
 
                 <div className="flex items-start space-x-4">
-                  <div className="bg-green-100 p-3 rounded-lg">
-                    <span className="text-2xl">📞</span>
+                  <div className="bg-green-100 p-3 rounded-lg text-green-600">
+                    <FontAwesomeIcon icon={faPhone} size="lg" />
                   </div>
                   <div>
                     <h4 className="font-semibold text-text-primary mb-1">Téléphone</h4>
@@ -72,8 +75,8 @@ export default function ContactSection() {
                 </div>
 
                 <div className="flex items-start space-x-4">
-                  <div className="bg-green-100 p-3 rounded-lg">
-                    <span className="text-2xl">💬</span>
+                  <div className="bg-green-100 p-3 rounded-lg text-green-500">
+                    <FontAwesomeIcon icon={faComments} size="lg" />
                   </div>
                   <div>
                     <h4 className="font-semibold text-text-primary mb-1">WhatsApp</h4>
@@ -89,8 +92,8 @@ export default function ContactSection() {
                 </div>
 
                 <div className="flex items-start space-x-4">
-                  <div className="bg-accent/20 p-3 rounded-lg">
-                    <span className="text-2xl">🕐</span>
+                  <div className="bg-accent/20 p-3 rounded-lg text-accent">
+                    <FontAwesomeIcon icon={faClock} size="lg" />
                   </div>
                   <div>
                     <h4 className="font-semibold text-text-primary mb-1">Horaires</h4>
@@ -137,7 +140,7 @@ export default function ContactSection() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center bg-green-500 hover:bg-green-600 text-white font-medium px-6 py-3 rounded-full transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
               >
-                <span className="text-xl mr-2">💬</span>
+                <FontAwesomeIcon icon={faComments} size="lg" className="mr-2 text-white" />
                 WhatsApp Direct
               </a>
             </div>

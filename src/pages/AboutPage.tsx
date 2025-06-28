@@ -1,5 +1,6 @@
 import React from 'react';
 import  Layout  from '../components/Layout';
+import ContactSection from '../components/ContactSection';
 
 const AboutPage = () => {
   return (
@@ -63,6 +64,10 @@ const AboutPage = () => {
             </ul>
           </div>
         </div>
+
+
+<ContactSection />
+
       </section>
     </Layout>
   );

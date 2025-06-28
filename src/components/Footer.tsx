@@ -1,4 +1,8 @@
+// Location: Replace the existing content in src/components/Footer.tsx
 import React from 'react';
+import { FaFacebookF, FaInstagram, FaWhatsapp } from 'react-icons/fa';
+import { MdLocationOn, MdEmail, MdPhone, MdAccessTime } from 'react-icons/md';
+import { BsCheckCircle } from 'react-icons/bs';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -46,38 +50,38 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook" 
-                className="bg-white/10 hover:bg-primary/20 p-3 rounded-full transition-all hover:scale-110"
+                className="bg-white/10 hover:bg-primary/20 p-3 rounded-full transition-all hover:scale-110 text-primary"
               >
-                <span className="text-xl">📘</span>
+                <FaFacebookF size={20} />
               </a>
               <a 
                 href="https://instagram.com/NortineTours" 
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram" 
-                className="bg-white/10 hover:bg-primary/20 p-3 rounded-full transition-all hover:scale-110"
+                className="bg-white/10 hover:bg-primary/20 p-3 rounded-full transition-all hover:scale-110 text-primary"
               >
-                <span className="text-xl">📷</span>
+                <FaInstagram size={20} />
               </a>
               <a 
                 href="https://wa.me/261326687543" 
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="WhatsApp" 
-                className="bg-white/10 hover:bg-primary/20 p-3 rounded-full transition-all hover:scale-110"
+                className="bg-white/10 hover:bg-primary/20 p-3 rounded-full transition-all hover:scale-110 text-green-400"
               >
-                <span className="text-xl">💬</span>
+                <FaWhatsapp size={20} />
               </a>
             </div>
 
             {/* Certifications */}
             <div className="text-sm text-gray-300">
               <p className="flex items-center mb-1">
-                <span className="text-accent mr-2">🌍</span>
+                <MdLocationOn className="text-accent mr-2" size={20} />
                 Agence de voyage certifiée
               </p>
               <p className="flex items-center">
-                <span className="text-accent mr-2">🕐</span>
+                <MdAccessTime className="text-accent mr-2" size={20} />
                 Plus de 10 ans d'expérience
               </p>
             </div>
@@ -136,14 +140,14 @@ export default function Footer() {
             <h3 className="text-xl font-semibold mb-6 text-primary">Contact</h3>
             <ul className="space-y-4">
               <li className="flex items-start space-x-3">
-                <span className="text-accent text-xl">📍</span>
+                <MdLocationOn className="text-accent" size={20} />
                 <div>
                   <p className="font-medium">Madagascar, Nosy Be</p>
                   <p className="text-gray-300 text-sm">Hell-Ville, Diego-Suarez</p>
                 </div>
               </li>
               <li className="flex items-center space-x-3">
-                <span className="text-accent text-xl">📧</span>
+                <MdEmail className="text-accent" size={20} />
                 <a 
                   href="mailto:contact@nortine-tours.mg" 
                   className="hover:text-accent transition-colors"
@@ -152,7 +156,7 @@ export default function Footer() {
                 </a>
               </li>
               <li className="flex items-center space-x-3">
-                <span className="text-accent text-xl">📞</span>
+                <MdPhone className="text-accent" size={20} />
                 <a 
                   href="tel:+261326687543" 
                   className="hover:text-accent transition-colors"
@@ -161,7 +165,7 @@ export default function Footer() {
                 </a>
               </li>
               <li className="flex items-center space-x-3">
-                <span className="text-accent text-xl">💬</span>
+                <FaWhatsapp className="text-green-400" size={20} />
                 <a 
                   href="https://wa.me/261326687543" 
                   className="hover:text-accent transition-colors"
@@ -220,7 +224,7 @@ export default function Footer() {
         {/* Badge de confiance */}
         <div className="text-center mt-8">
           <div className="inline-flex items-center space-x-2 bg-white/10 px-4 py-2 rounded-full">
-            <span className="text-accent text-xl">✅</span>
+            <BsCheckCircle className="text-accent" size={20} />
             <span className="text-sm text-gray-300">Agence de voyage certifiée et assurée</span>
           </div>
         </div>

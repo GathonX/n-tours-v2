@@ -1,5 +1,6 @@
 import React from 'react';
 import  Layout  from '../components/Layout';
+import ContactSection from '../components/ContactSection';
 
 const AmbanjaPage = () => {
   return (
@@ -71,6 +72,10 @@ const AmbanjaPage = () => {
             </p>
           </div>
         </div>
+
+
+<ContactSection />
+
       </section>
     </Layout>
   );

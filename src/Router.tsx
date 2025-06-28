@@ -1,5 +1,4 @@
-// src/Router.tsx
-
+// Location: Replace the existing content in src/Router.tsx
 import React, { Suspense } from 'react';
 import { routes, useRouter } from './utils/router';
 
