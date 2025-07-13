@@ -1,5 +1,6 @@
-// Location: src/components/ContactForm.tsx
+// src/components/ContactForm.tsx
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface FormData {
   name: string;
@@ -7,7 +8,6 @@ interface FormData {
   phone: string;
   subject: string;
   message: string;
-  destination: string;
 }
 
 interface Status {
@@ -16,13 +16,13 @@ interface Status {
 }
 
 export default function ContactForm() {
+  const { t, i18n } = useTranslation();
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
     phone: '',
     subject: '',
     message: '',
-    destination: '',
   });
 
   const [status, setStatus] = useState<Status>({
@@ -40,7 +40,7 @@ export default function ContactForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus({ type: 'loading', message: 'Envoi en cours...' });
+    setStatus({ type: 'loading', message: t('loading') });
 
     try {
       const response = await fetch('http://localhost:5000/api/send-email', {
@@ -56,7 +56,7 @@ export default function ContactForm() {
       if (response.ok) {
         setStatus({
           type: 'success',
-          message: 'Votre message a été envoyé avec succès ! Nous vous répondrons dans les plus brefs délais.',
+          message: t('success'),
         });
         setFormData({
           name: '',
@@ -64,28 +64,47 @@ export default function ContactForm() {
           phone: '',
           subject: '',
           message: '',
-          destination: '',
         });
       } else {
-        throw new Error(data.message || 'Erreur lors de l\'envoi');
+        throw new Error(data.message || t('error'));
       }
     } catch (error) {
       setStatus({
         type: 'error',
-        message: 'Une erreur est survenue. Veuillez réessayer ou nous contacter directement.',
+        message: t('error'),
       });
-      console.error('Erreur:', error);
+      console.error('Fetch Error:', error);
     }
   };
 
+  const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng);
+  };
+
   return (
-    <div className="bg-white rounded-lg shadow-lg p-8">
+    <div className="bg-white rounded-lg shadow-lg p-8 relative">
+      {/* Icônes de langue en haut à droite */}
+      <div className="absolute top-4 right-4 flex space-x-2">
+        <button
+          onClick={() => changeLanguage('fr')}
+          className="text-blue-500 hover:text-blue-700"
+        >
+          🇫🇷 FR
+        </button>
+        <button
+          onClick={() => changeLanguage('en')}
+          className="text-blue-500 hover:text-blue-700"
+        >
+          🇬🇧 EN
+        </button>
+      </div>
+
       <div className="mb-8">
         <h3 className="text-2xl font-bold text-text-primary mb-2">
-          Contactez-nous
+          {t('contact-us')}
         </h3>
         <p className="text-text-secondary">
-          Une question ? Un projet de voyage ? Nous sommes là pour vous aider !
+          {t('question')}
         </p>
       </div>
 
@@ -93,7 +112,7 @@ export default function ContactForm() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-text-primary mb-2">
-              Nom complet *
+              {t('name')}
             </label>
             <input
               type="text"
@@ -103,13 +122,13 @@ export default function ContactForm() {
               onChange={handleChange}
               required
               className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all"
-              placeholder="Votre nom complet"
+              placeholder={t('placeholder-name')}
             />
           </div>
 
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-text-primary mb-2">
-              Email *
+              {t('email')}
             </label>
             <input
               type="email"
@@ -119,66 +138,55 @@ export default function ContactForm() {
               onChange={handleChange}
               required
               className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all"
-              placeholder="votre@email.com"
+              placeholder={t('placeholder-email')}
             />
           </div>
         </div>
 
-        <div>
-          <label htmlFor="phone" className="block text-sm font-medium text-text-primary mb-2">
-            Téléphone
-          </label>
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all"
-            placeholder="+261 32 12 34 567"
-          />
-        </div>
-
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-medium text-text-primary mb-2 font-sans">Destination souhaitée</label>
-            <select 
+            <label className="block text-sm font-medium text-text-primary mb-2 font-sans">
+              {t('destination')}
+            </label>
+            <select
               name="destination"
-              value={formData.destination}
+              value=""
               onChange={handleChange}
               className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-primary font-sans"
             >
-              <option value="">Choisir une destination</option>
-              <option value="Nosy Iranja">Nosy Iranja - 80€</option>
-              <option value="Réserve de Lokobe">Réserve de Lokobe - 80€</option>
-              <option value="Tour de Nosy-Be">Tour de Nosy-Be - 80€</option>
-              <option value="Nosy Komba & Tanikely">Nosy Komba & Tanikely - 80€</option>
-              <option value="Tours Ambajaha">Tours Ambajaha - 150€</option>
-              <option value="Nosy Sakatia">Nosy Sakatia - 60€</option>
+              <option value="">{t('choose-destination')}</option>
+              <option value="Nosy Iranja">{t('nosy-iranja')}</option>
+              <option value="Réserve de Lokobe">{t('reserve-lokobe')}</option>
+              <option value="Tour de Nosy-Be">{t('tour-nosy-be')}</option>
+              <option value="Nosy Komba & Tanikely">{t('nosy-komba-tanikely')}</option>
+              <option value="Tours Ambajaha">{t('tours-ambajaha')}</option>
+              <option value="Nosy Sakatia">{t('nosy-sakatia')}</option>
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-text-primary mb-2 font-sans">Type de demande *</label>
-            <select 
+            <label className="block text-sm font-medium text-text-primary mb-2 font-sans">
+              {t('request-type')}
+            </label>
+            <select
               name="subject"
               value={formData.subject}
               onChange={handleChange}
               required
               className="w-full px-4 py-3 rounded-xl border border-border focus:outline-none focus:ring-2 focus:ring-primary font-sans"
             >
-              <option value="">Sélectionnez un sujet</option>
-              <option value="reservation">Réservation d'excursion</option>
-              <option value="information">Demande d'information</option>
-              <option value="devis">Demande de devis personnalisé</option>
-              <option value="groupe">Voyage de groupe</option>
-              <option value="autre">Autre demande</option>
+              <option value="">{t('select-request')}</option>
+              <option value="reservation">{t('reservation')}</option>
+              <option value="information">{t('information')}</option>
+              <option value="devis">{t('quote')}</option>
+              <option value="groupe">{t('group')}</option>
+              <option value="autre">{t('other')}</option>
             </select>
           </div>
         </div>
 
         <div>
           <label htmlFor="message" className="block text-sm font-medium text-text-primary mb-2">
-            Message *
+            {t('message')}
           </label>
           <textarea
             id="message"
@@ -188,7 +196,7 @@ export default function ContactForm() {
             required
             rows={6}
             className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all resize-vertical"
-            placeholder="Décrivez votre projet de voyage, vos questions ou vos besoins spécifiques..."
+            placeholder={t('placeholder-message')}
           />
         </div>
 
@@ -227,19 +235,16 @@ export default function ContactForm() {
             {status.type === 'loading' ? (
               <div className="flex items-center justify-center">
                 <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                Envoi en cours...
+                {t('loading')}
               </div>
             ) : (
-              'Envoyer le message'
+              t('send')
             )}
           </button>
         </div>
 
         <div className="text-center text-sm text-text-secondary">
-          <p>
-            Vous pouvez aussi nous contacter directement :<br />
-            📧 contact@nortine-tours.mg • 📱 +261 32 66 87 543
-          </p>
+          <p>{t('contact-info')}</p>
         </div>
       </form>
     </div>

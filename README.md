@@ -51,25 +51,25 @@ export default tseslint.config({
     ...reactDom.configs.recommended.rules,
   },
 })
-```
-src/
-├── components/
-│   ├── Header.tsx          ← À créer (code fourni)
-│   ├── Footer.tsx          
-│   ├── Hero.tsx           
-│   ├── PopularDestinations.tsx
-│   ├── WhyChooseUs.tsx    
-│   ├── Testimonials.tsx   
-│   └── Newsletter.tsx     
-├── App.tsx                 ← Existe déjà (à modifier)
-├── App.css                 ← Existe déjà
-├── index.css              ← Existe déjà
-└── main.tsx               ← Existe déjà
 
-public/
-├── images/
-│   └── hero/              ← Vos images *.png
-└── vite.svg               ← Existe déjà
+
+```
+n-tours-v2/
+├── node_modules/ (pour le frontend)
+├── public/
+├── src/
+│   ├── components/
+│   │   ├── ContactForm.tsx
+│   └── ...
+├── server/
+│   ├── node_modules/ (pour le backend)
+│   ├── server.js
+│   ├── package.json (pour le backend)
+│   └── .env
+├── package.json (pour le frontend)
+├── .gitignore
+└── 
+...
 
 Reste à faire 
 reste à faire liaison de page, langue multiple , ajout photo

@@ -21,7 +21,7 @@ const AmbanjaPage = () => {
           <div className="w-full h-64 lg:h-96 mb-12 overflow-hidden rounded-xl border border-border">
             <div
               className="w-full h-full bg-primary-light"
-              style={{ backgroundImage: `url("")`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+              style={{ backgroundImage: `url("../public/images/Ambanja/a1.jpg")`, backgroundSize: 'cover', backgroundPosition: 'center' }}
             />
           </div>
 

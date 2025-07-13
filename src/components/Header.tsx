@@ -2,8 +2,10 @@
 import React, { useState } from 'react';
 import { FaEnvelope, FaPhoneAlt, FaFacebookF, FaWhatsapp } from 'react-icons/fa'; // Icônes réelles
 import { BsGlobe } from 'react-icons/bs'; // Icône pour les langues
+import { useTranslation } from 'react-i18next'; // Pour gérer les traductions
 
 export default function Header() {
+  const { i18n } = useTranslation(); // Hook pour changer la langue
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const navLinks = [
@@ -44,8 +46,28 @@ export default function Header() {
     { code: 'it', name: 'Italiano', flagColor: '#009246', icon: BsGlobe },
   ];
 
+  const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng);
+  };
+
   return (
     <header className="fixed top-0 w-full bg-white backdrop-blur-lg shadow-md z-50 border-b border-gray-100">
+      {/* Language Selector above Navbar */}
+      <div className="bg-gray-50">
+        <div className="container mx-auto px-6 lg:px-8 flex flex-wrap justify-end items-center gap-4 py-2 text-sm text-gray-600">
+          {languageLinks.map((lang) => (
+            <button
+              key={lang.code}
+              onClick={() => changeLanguage(lang.code)}
+              className="flex items-center space-x-1 hover:opacity-80 transition-opacity"
+            >
+              <lang.icon size={14} style={{ color: lang.flagColor }} />
+              <span className="hidden md:inline">{lang.name}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* Sub-Header */}
       <div className="bg-gray-50">
         <div className="container mx-auto px-6 lg:px-8 flex flex-wrap justify-between items-center gap-4 py-2 text-sm text-gray-600">
@@ -63,17 +85,6 @@ export default function Header() {
               </a>
             ))}
           </div>
-          <div className="flex gap-2">
-            {languageLinks.map((lang) => (
-              <button
-                key={lang.code}
-                className="flex items-center space-x-1 hover:opacity-80 transition-opacity"
-              >
-                <lang.icon size={14} style={{ color: lang.flagColor }} />
-                <span className="hidden md:inline">{lang.name}</span>
-              </button>
-            ))}
-          </div>
         </div>
       </div>
 
@@ -83,8 +94,7 @@ export default function Header() {
           {/* Logo */}
           <div className="flex items-center">
             <a href="/" className="text-3xl font-extrabold text-blue-900 hover:text-primary transition-colors">
-           
-              NORTINE <span className=' text-primary hover:text-gray-900 transition-colors'> TOURS</span>
+              NORTINE <span className="text-primary hover:text-gray-900 transition-colors">TOURS</span>
             </a>
           </div>
 
@@ -131,8 +141,8 @@ export default function Header() {
             <a href="/" className="text-2xl font-extrabold text-gray-900">
               NORTINE TOURS
             </a>
-            <button 
-              onClick={() => setMobileOpen(false)} 
+            <button
+              onClick={() => setMobileOpen(false)}
               aria-label="Close menu"
               className="p-2 hover:bg-gray-100 rounded transition-colors text-2xl text-gray-700"
             >

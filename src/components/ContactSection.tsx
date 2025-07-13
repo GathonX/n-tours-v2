@@ -3,40 +3,40 @@ import React from 'react';
 import ContactForm from './ContactForm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt, faEnvelope, faPhone, faComments, faClock } from '@fortawesome/free-solid-svg-icons';
+import { useTranslation } from 'react-i18next';
 
 export default function ContactSection() {
+  const { t } = useTranslation();
+
   return (
     <section className="py-20 bg-background-alt" id="contact">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-text-primary mb-4">
-            Planifions Votre Aventure
+            {t('plan-adventure')}
           </h2>
           <p className="text-text-secondary max-w-2xl mx-auto">
-            Prêt à découvrir Madagascar ? Contactez-nous pour organiser votre voyage sur mesure
+            {t('plan-adventure-subtitle')}
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-          {/* Formulaire de contact */}
           <div>
             <ContactForm />
           </div>
 
-          {/* Informations de contact */}
           <div className="space-y-8">
             <div className="bg-white rounded-lg shadow-lg p-8">
               <h3 className="text-2xl font-bold text-text-primary mb-6">
-                Nos Coordonnées
+                {t('contact-details')}
               </h3>
-              
               <div className="space-y-6">
                 <div className="flex items-start space-x-4">
                   <div className="bg-primary/10 p-3 rounded-lg text-primary">
                     <FontAwesomeIcon icon={faMapMarkerAlt} size="lg" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-text-primary mb-1">Adresse</h4>
+                    <h4 className="font-semibold text-text-primary mb-1">{t('address')}</h4>
                     <p className="text-text-secondary">
                       Hell-Ville, Nosy Be<br />
                       Madagascar
@@ -49,8 +49,8 @@ export default function ContactSection() {
                     <FontAwesomeIcon icon={faEnvelope} size="lg" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-text-primary mb-1">Email</h4>
-                    <a 
+                    <h4 className="font-semibold text-text-primary mb-1">{t('email')}</h4>
+                    <a
                       href="mailto:contact@nortine-tours.mg"
                       className="text-secondary hover:text-secondary-dark transition-colors"
                     >
@@ -64,8 +64,8 @@ export default function ContactSection() {
                     <FontAwesomeIcon icon={faPhone} size="lg" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-text-primary mb-1">Téléphone</h4>
-                    <a 
+                    <h4 className="font-semibold text-text-primary mb-1">{t('phone')}</h4>
+                    <a
                       href="tel:+261326687543"
                       className="text-green-600 hover:text-green-700 transition-colors"
                     >
@@ -79,14 +79,14 @@ export default function ContactSection() {
                     <FontAwesomeIcon icon={faComments} size="lg" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-text-primary mb-1">WhatsApp</h4>
-                    <a 
+                    <h4 className="font-semibold text-text-primary mb-1">{t('whatsapp')}</h4>
+                    <a
                       href="https://wa.me/261326687543"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-green-500 hover:text-green-600 transition-colors"
                     >
-                      Chat disponible 24h/7j
+                      {t('whatsapp')} 24h/7j
                     </a>
                   </div>
                 </div>
@@ -96,53 +96,51 @@ export default function ContactSection() {
                     <FontAwesomeIcon icon={faClock} size="lg" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-text-primary mb-1">Horaires</h4>
+                    <h4 className="font-semibold text-text-primary mb-1">{t('hours')}</h4>
                     <p className="text-text-secondary">
                       Lun - Dim : 7h00 - 19h00<br />
-                      <span className="text-sm">Support WhatsApp 24h/7j</span>
+                      <span className="text-sm">{t('whatsapp')} 24h/7j</span>
                     </p>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Informations supplémentaires */}
             <div className="bg-white rounded-lg shadow-lg p-8">
               <h3 className="text-xl font-bold text-text-primary mb-4">
-                Pourquoi Nous Contacter ?
+                {t('why-contact')}
               </h3>
-              <ul className="space-y-3 text-text-secondary">
-                <li className="flex items-center">
-                  <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
-                  Devis personnalisé gratuit
+              <ul className="space-y-4 text-text-secondary">
+                <li className="flex items-start space-x-3">
+                  <span className="text-primary mt-1">✓</span>
+                  <span>{t('free-quote')}</span>
                 </li>
-                <li className="flex items-center">
-                  <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
-                  Conseils d'experts locaux
+                <li className="flex items-start space-x-3">
+                  <span className="text-primary mt-1">✓</span>
+                  <span>{t('expert-advice')}</span>
                 </li>
-                <li className="flex items-center">
-                  <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
-                  Réponse rapide garantie
+                <li className="flex items-start space-x-3">
+                  <span className="text-primary mt-1">✓</span>
+                  <span>{t('quick-response')}</span>
                 </li>
-                <li className="flex items-center">
-                  <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
-                  Support en français
+                <li className="flex items-start space-x-3">
+                  <span className="text-primary mt-1">✓</span>
+                  <span>{t('french-support')}</span>
                 </li>
               </ul>
-            </div>
-
-            {/* Appel à l'action rapide */}
-            <div className="text-center">
-              <p className="text-text-secondary mb-4">Besoin d'une réponse immédiate ?</p>
-              <a
-                href="https://wa.me/261326687543"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center bg-green-500 hover:bg-green-600 text-white font-medium px-6 py-3 rounded-full transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
-              >
-                <FontAwesomeIcon icon={faComments} size="lg" className="mr-2 text-white" />
-                WhatsApp Direct
-              </a>
+              <div className="mt-6">
+                <h4 className="text-lg font-semibold text-text-primary mb-2">
+                  {t('immediate-response')}
+                </h4>
+                <a
+                  href="https://wa.me/261326687543"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-2 rounded-full transition-all"
+                >
+                  {t('whatsapp-direct')}
+                </a>
+              </div>
             </div>
           </div>
         </div>

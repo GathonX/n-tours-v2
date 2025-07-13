@@ -10,7 +10,7 @@ const NosyIranjaPage = () => {
           {/* En-tête de la section */}
           <div className="text-center mb-12">
             <h1 className="text-4xl lg:text-5xl font-bold text-text-primary mb-6 font-sans">
-              Nosy Iranja - Nosy Antsohy : Les Îles aux Tortues
+              Nosy Iranja - Nosy Antsoha : Les Îles aux Tortues
             </h1>
             <p className="text-lg text-text-secondary max-w-3xl mx-auto leading-relaxed font-sans">
               Découvrez des plages de sable blanc immaculées reliées par un banc de sable légendaire. Observez les tortues marines dans leur habitat naturel préservé.
@@ -21,7 +21,7 @@ const NosyIranjaPage = () => {
           <div className="w-full h-64 lg:h-96 mb-12 overflow-hidden rounded-xl border border-border">
             <div
               className="w-full h-full bg-primary-light"
-              style={{ backgroundImage: `url("")`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+              style={{ backgroundImage: `url("../public/images/Nosy-iranja/Nosy antsoha/île-dAntsoha-au-Sud-ouest-de-Nosy-Be.jpg")`, backgroundSize: 'cover', backgroundPosition: 'center' }}
             />
           </div>
 

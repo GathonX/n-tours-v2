@@ -2,6 +2,7 @@
 
 
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface Slide {
   file: string;
@@ -37,10 +38,11 @@ const slides: Slide[] = [
   },
 ];
 
+
 export default function Hero() {
+  const { t } = useTranslation();
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Auto-slide effect
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -61,11 +63,8 @@ export default function Hero() {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
-  //  ${fullWidth ? '' : 'px-4 sm:px-6 max-w-7xl mx-auto lg:px-8'} 
-
   return (
     <section className="relative overflow-hidden h-[60vh] sm:h-[70vh] md:h-[60vh] lg:h-[90vh] mt-32 w-full">
-      {/* Slides Container */}
       <div className="relative h-full w-full">
         {slides.map((slide, index) => (
           <div
@@ -74,30 +73,28 @@ export default function Hero() {
               index === currentSlide ? 'opacity-100' : 'opacity-0'
             }`}
           >
-            {/* Background Image */}
             <div className="absolute inset-0">
               <img
                 src={`/images/hero/${slide.file}`}
-                alt={slide.title}
+                alt={t(slide.title)}
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-secondary-dark/20" />
             </div>
 
-            {/* Content */}
             <div className="relative w-full h-full flex flex-col justify-center px-4 sm:px-6 lg:px-8">
               <div className="max-w-2xl text-white">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-wide">
-                  {slide.title}
+                  {t(slide.title)}
                 </h1>
                 <p className="text-lg md:text-xl mb-6 leading-relaxed">
-                  {slide.description}
+                  {t(slide.description)}
                 </p>
                 <a
                   href="/destinations"
                   className="inline-block bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-2 md:px-8 md:py-3 rounded-full transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
                 >
-                  Découvrir nos destinations
+                  {t('discover-excursion')}
                 </a>
               </div>
             </div>
@@ -105,13 +102,12 @@ export default function Hero() {
         ))}
       </div>
 
-      {/* Navigation Arrows */}
       <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0">
         <div className="flex justify-between px-4">
           <button
             onClick={prevSlide}
             className="bg-white/20 hover:bg-white/30 text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center backdrop-blur-sm transition-all"
-            aria-label="Slide précédent"
+            aria-label="Previous slide"
           >
             <svg
               className="w-6 h-6"
@@ -130,7 +126,7 @@ export default function Hero() {
           <button
             onClick={nextSlide}
             className="bg-white/20 hover:bg-white/30 text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center backdrop-blur-sm transition-all"
-            aria-label="Slide suivant"
+            aria-label="Next slide"
           >
             <svg
               className="w-6 h-6"
@@ -149,7 +145,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Pagination Dots */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
         <div className="flex space-x-2">
           {slides.map((_, index) => (
@@ -161,13 +156,12 @@ export default function Hero() {
                   ? 'bg-primary scale-110'
                   : 'bg-white/50 hover:bg-white/70'
               }`}
-              aria-label={`Aller au slide ${index + 1}`}
+              aria-label={`Go to slide ${index + 1}`}
             />
           ))}
         </div>
       </div>
 
-      {/* Scroll Arrow */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
         <svg
           className="w-6 h-6 text-white opacity-70"
@@ -176,22 +170,14 @@ export default function Hero() {
           stroke="currentColor"
           aria-hidden="true"
         >
-          <path 
-            strokeLinecap="round" 
-            strokeLinejoin="round" 
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
             strokeWidth={2}
-            d="M19 14l-7 7m0 0l-7-7m7 7V3" 
+            d="M19 14l-7 7m0 0l-7-7m7 7V3"
           />
         </svg>
       </div>
     </section>
   );
 }
-
-
-
-
-
-
-
-

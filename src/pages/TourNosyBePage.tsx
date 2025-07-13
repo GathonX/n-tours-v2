@@ -21,7 +21,7 @@ const TourNosyBePage = () => {
           <div className="w-full h-64 lg:h-96 mb-12 overflow-hidden rounded-xl border border-border">
             <div
               className="w-full h-full bg-primary-light"
-              style={{ backgroundImage: `url("")`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+              style={{ backgroundImage: `url("../public/images/Tours-ile-de-nosy-be/mont-passot/mp2.png")`, backgroundSize: 'cover', backgroundPosition: 'center' }}
             />
           </div>
 

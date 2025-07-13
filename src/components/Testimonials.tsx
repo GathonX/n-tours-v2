@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const testimonials = [
   {
@@ -64,7 +65,9 @@ const testimonials = [
   }
 ];
 
+
 export default function Testimonials() {
+  const { t } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(0);
 
   const nextTestimonial = () => {
@@ -99,19 +102,17 @@ export default function Testimonials() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-text-primary mb-4">
-            Ce que disent nos clients
+            {t('testimonials-title')}
           </h2>
           <p className="text-text-secondary max-w-2xl mx-auto">
-            Découvrez les expériences vécues par nos voyageurs à Madagascar avec NORTINE TOURS
+            {t('testimonials-subtitle')}
           </p>
         </div>
 
         <div className="max-w-4xl mx-auto">
           <div className="relative">
-            {/* Témoignage actif */}
             <div className="bg-white rounded-lg shadow-xl p-8 md:p-12">
               <div className="flex flex-col items-center">
-                {/* Avatar */}
                 <div className="w-20 h-20 relative mb-6">
                   <div className="absolute inset-0 bg-primary/20 rounded-full" />
                   <div className="absolute inset-2 bg-primary/10 rounded-full flex items-center justify-center">
@@ -125,17 +126,14 @@ export default function Testimonials() {
                   </div>
                 </div>
 
-                {/* Étoiles */}
                 <div className="flex mb-4">
                   {renderStars(testimonials[activeIndex].rating)}
                 </div>
 
-                {/* Citation */}
                 <blockquote className="text-xl text-text-primary text-center mb-6 leading-relaxed">
-                  "{testimonials[activeIndex].quote}"
+                  "{t(testimonials[activeIndex].quote)}"
                 </blockquote>
 
-                {/* Informations client */}
                 <div className="text-center">
                   <cite className="font-semibold text-lg text-text-primary not-italic">
                     {testimonials[activeIndex].name}
@@ -144,19 +142,18 @@ export default function Testimonials() {
                     {testimonials[activeIndex].role} • {testimonials[activeIndex].country}
                   </p>
                   <span className="inline-block mt-2 bg-secondary-light text-secondary-dark px-3 py-1 rounded-full text-sm">
-                    Excursion : {testimonials[activeIndex].tour}
+                    Excursion: {t(testimonials[activeIndex].tour)}
                   </span>
                 </div>
               </div>
             </div>
 
-            {/* Boutons de navigation */}
             <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0">
               <div className="flex justify-between">
                 <button
                   onClick={previousTestimonial}
                   className="bg-white/90 hover:bg-white text-primary w-12 h-12 rounded-full shadow-lg flex items-center justify-center -translate-x-6 transition-all hover:scale-110"
-                  aria-label="Témoignage précédent"
+                  aria-label="Previous testimonial"
                 >
                   <svg
                     className="w-6 h-6"
@@ -175,7 +172,7 @@ export default function Testimonials() {
                 <button
                   onClick={nextTestimonial}
                   className="bg-white/90 hover:bg-white text-primary w-12 h-12 rounded-full shadow-lg flex items-center justify-center translate-x-6 transition-all hover:scale-110"
-                  aria-label="Témoignage suivant"
+                  aria-label="Next testimonial"
                 >
                   <svg
                     className="w-6 h-6"
@@ -195,7 +192,6 @@ export default function Testimonials() {
             </div>
           </div>
 
-          {/* Indicateurs */}
           <div className="flex justify-center mt-8 space-x-2">
             {testimonials.map((_, index) => (
               <button
@@ -206,29 +202,28 @@ export default function Testimonials() {
                     ? 'bg-primary scale-110'
                     : 'bg-primary/20 hover:bg-primary/40'
                 }`}
-                aria-label={`Aller au témoignage ${index + 1}`}
+                aria-label={`Go to testimonial ${index + 1}`}
               />
             ))}
           </div>
         </div>
 
-        {/* Statistiques */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16 text-center">
           <div>
             <div className="text-3xl font-bold text-primary mb-2">500+</div>
-            <div className="text-text-secondary">Clients satisfaits</div>
+            <div className="text-text-secondary">{t('clients-satisfied')}</div>
           </div>
           <div>
             <div className="text-3xl font-bold text-primary mb-2">50+</div>
-            <div className="text-text-secondary">Excursions organisées</div>
+            <div className="text-text-secondary">{t('excursions-organized')}</div>
           </div>
           <div>
             <div className="text-3xl font-bold text-primary mb-2">5★</div>
-            <div className="text-text-secondary">Note moyenne</div>
+            <div className="text-text-secondary">{t('average-rating')}</div>
           </div>
           <div>
             <div className="text-3xl font-bold text-primary mb-2">10+</div>
-            <div className="text-text-secondary">Années d'expérience</div>
+            <div className="text-text-secondary">{t('years-experience')}</div>
           </div>
         </div>
       </div>
